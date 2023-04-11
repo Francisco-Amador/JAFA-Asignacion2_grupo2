@@ -7,15 +7,15 @@ const Form: React.FC = () => {
 	useEffect(() => {
 		const taskToUpdate = tasks.find((t) => t.id === selectedTask.id);
 		if (taskToUpdate) {
-			setSelectedTask(selectedTask.id);
+			setSelectedTask(selectedTask.id, selectedTask.status);
 		}
-	}, [selectedTask.id, setSelectedTask, tasks]);
+	}, [selectedTask.status, selectedTask.id, setSelectedTask, tasks]);
 
 	const handleTaskClick = (e: React.FormEvent, id: number, status: boolean) => {
+		if(id===0)
 		e.preventDefault();
-		if (id != 0) {
-			updateTask(id, status);
-		}
+		updateTask(id, status);
+		setSelectedTask(id, true);
 	};
 
 	return (
@@ -36,7 +36,7 @@ const Form: React.FC = () => {
 						/>
 						<div className="w-11 h-6 bg-red-700 rounded-full peer dark:bg-red-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-2.5 after:left-[2px] after:bg-white after:border-re after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
 					</label>
-					<button onClick={(e) => setSelectedTask(0)}>Limpiar Pantalla</button>
+					<button onClick={(e) => setSelectedTask(0,selectedTask.status)}>Limpiar Pantalla</button>
 				</div>
 			)}
 		</div>

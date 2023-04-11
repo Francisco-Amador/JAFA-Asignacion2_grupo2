@@ -11,7 +11,7 @@ interface TaskContextType {
 	selectedTask: Task;
 	updateTask: (id: number, status: boolean) => void;
 	setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-	setSelectedTask: (id: number) => void;
+	setSelectedTask: (id: number, status: boolean) => void;
 }
 
 const defaultTasks: Task[] = [
@@ -47,13 +47,9 @@ const TaskContextProvider: React.FC<CustomContextProviderProps> = ({children}) =
 		setTasks(newTasks);
 	};
 
-	const setSelectedTask = (id: number) => {
-		if (id === 0) {
-			setSelectedTasks({id: 0, name: '', status: false});
-		} else {
-			const changedTask = tasks.filter((task) => task.id === id)[0];
-			setSelectedTasks(changedTask);
-		}
+	const setSelectedTask = (id: number, status: boolean) => {
+		const changedTask = tasks.filter((task) => task.id === id)[0];
+		setSelectedTasks(changedTask);
 	};
 
 	return (
